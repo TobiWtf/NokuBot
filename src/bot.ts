@@ -11,7 +11,7 @@ const unparsedconf: any = config();
 const conf = unparsedconf.parsed;
 const token: string = conf.TOKEN;
 
-export async function start(): Promise<void> {
+export default async function start(): Promise<void> {
     const client = new Client({
         classes: [
             `${__dirname}/*commands.ts`,

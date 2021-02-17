@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "@typeit/discord": "^4.0.9",
+    "@types/better-sqlite3": "^5.4.1",
+    "better-sqlite3": "^7.1.2",
     "dotenv": "^8.2.0",
     "ts-node": "^9.1.1",
     "tslib": "^2.1.0",
@@ -10,6 +12,7 @@
     "start": "ts-node index.ts"
   },
   "devDependencies": {
-    "@types/node": "^14.14.28"
+    "@types/node": "^14.14.28",
+    "@types/sqlite3": "^3.1.7"
   }
 }

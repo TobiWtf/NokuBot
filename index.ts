@@ -1,2 +1,2 @@
-import { start } from './src/bot';
+import start from './src/bot';
 start()

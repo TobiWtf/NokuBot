@@ -4,7 +4,8 @@ import {
     Client,
     Command,
     CommandMessage,
-    CommandNotFound
+    CommandNotFound,
+    Infos
 } from '@typeit/discord';
 
 import { 
@@ -18,16 +19,16 @@ import default_class from './commands_class';
 
 var nokubase = new database();
 
-@Discord('n!')
+@Discord(`n!`)
 export abstract class normal extends default_class {
 
-    @Command("ping")
+    @Command(`ping`)
     private async ping(command: CommandMessage): Promise<void> {
-        let latency: {ws: number, bot: number} = await this.latency(command);
-        command.channel.send(`Bot latency is ${latency.bot}ms Websocket latency is ${latency.ws}ms`)
+        let latency: {[key: string]: number} = await this.latency(command);
+        this.color_send(command, `Bot latency is ${latency.bot}ms Websocket latency is ${latency.ws}ms`)
     }
 
-    @Command("defys")
+    @Command(`defys`)
     private async defys(command: CommandMessage): Promise<void> {
         this.index_member_nicks(
             command, 

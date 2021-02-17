@@ -1,8 +1,26 @@
-import { User } from 'discord.js';
+import { CommandMessage } from '@typeit/discord';
+import { User, MessageEmbed } from 'discord.js';
 
 export default abstract class default_class {
 
-    public issue(command: any, msg: string | null = null) {
+    public async random_color(): Promise<string> {
+        return `#${(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, `0`)}`;
+    }
+
+    public async has_perm(command: CommandMessage, permision: string | any): Promise<boolean> {
+        if (command.member?.permissions.has(permision)) {
+            return true
+        } else return false
+    }
+
+    public async color_send(command: CommandMessage, msg: string): Promise<void> {
+        let embed = new MessageEmbed()
+        .setColor(await this.random_color())
+        .setDescription(msg);
+        command.channel.send(embed);
+    }
+
+    public issue(command: CommandMessage, msg: string | null = null) {
         if (msg) {
             command.channel.send(`Something went wrong\n\ndetails: \n${msg}`)
         } else {
@@ -10,7 +28,7 @@ export default abstract class default_class {
         }
     }
 
-    public async index_member_nicks(command: any, opts: {[key: string]: any} = {nick: ""}, callback: any = null): Promise<Array<User>> {
+    public async index_member_nicks(command: CommandMessage, opts: {[key: string]: any} = {nick: ""}, callback: Function | null = null): Promise<Array<User>> {
         let members = await command.guild?.members.fetch();
         let users: Array<User> = [];
         if (!members) {
@@ -33,7 +51,7 @@ export default abstract class default_class {
         return users
     }
 
-    public async latency(command: any): Promise<{ws: number, bot: number}> {
+    public async latency(command: CommandMessage): Promise<{[key: string]: number}> {
         return {
             ws: Math.round(command.client.ws.ping),
             bot: Date.now() - command.createdTimestamp

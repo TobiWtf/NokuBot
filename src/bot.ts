@@ -4,21 +4,26 @@ import {
     Client
 } from '@typeit/discord';
 import  { config } from 'dotenv';
-import { type } from 'os';
-import * as commands from './commands';
+
+interface conf {
+    [key: string]: string
+}
 
 const unparsedconf: any = config();
-const conf = unparsedconf.parsed;
+const conf: conf = unparsedconf.parsed;
 const token: string = conf.TOKEN;
 
-export default async function start(): Promise<void> {
-    const client = new Client({
+const client: Client = new Client(
+    {
         classes: [
             `${__dirname}/*commands.ts`,
-          `${__dirname}/*commands.js`
+            `${__dirname}/*commands.js`
         ],
         silent: false,
-        variablesChar: ":"
-      });
+        variablesChar: `:`
+    }
+)
+
+export default async function start() {
     await client.login(token)
 }

@@ -1,4 +1,4 @@
-import sqlite = require("better-sqlite3");
+import sqlite = require('better-sqlite3');
 import EventEmitter from 'events';
 const events = new EventEmitter();
 
@@ -10,7 +10,7 @@ function prepare(target: Object, propertyKey: string, descriptor: TypedPropertyD
 export default class database {
     database: any;
 
-    constructor(path: string = "database.db", opts = {}) {
+    constructor(path: string = `database.db`, opts = {}) {
         this.database = sqlite(path, opts);
         this.prepare()
     };
@@ -24,8 +24,11 @@ export default class database {
         );
     }
 
-    @prepare
+    //@prepare
     private static async test(): Promise<string> {
-        return "CREATE TABLE IF NOT EXISTS newlol (test INT, bruh TEXT)";
+        return `
+        CREATE TABLE 
+        IF NOT EXISTS
+        `
     }
 }

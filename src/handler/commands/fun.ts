@@ -1,3 +1,6 @@
+/**
+ * Normal imports
+ */
 import {
     Command,
     CommandMessage,
@@ -5,22 +8,31 @@ import {
     Infos
 } from "@typeit/discord"
 
-import { User } from "discord.js"
+import { User } from 'discord.js'
 
-const getInfo = (description: string): {description: string, commandClass: string} => {
-    return {
-        description: description,
-        commandClass: "Fun"
-    }
-}
+/**
+ * Default imports
+ */
+import baseclass from '../baseclass';
 
-
-import baseclass from "../baseclass";
+/**
+ * Glob, used to determine grouping with help command
+ */
+let commandClass = 'Fun';
 
 export default abstract class fun extends baseclass {
 
+    /**
+     * Iterates over the member list and tells you how many people have "defy" in their name
+     * @param command 
+     */
     @Command(`defys`)
-    @Infos(getInfo(`Command that tells you how many defys are in the server`))
+    @Infos({
+        commandClass: commandClass,
+        args: null,
+        description: `Tells you how many defys there are in the server`,
+        usage: `defys`
+    })
     private async defys(command: CommandMessage): Promise<void> {
         this.index_member_nicks(
             command, 

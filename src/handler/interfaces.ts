@@ -1,6 +1,11 @@
 export interface command {
     [key: string]: any,
-    infos?: {} | any,
+    infos?: { 
+        commandClass?: string,
+        description?: string,
+        args?: Array<string> | null,
+        usage?: Array<string> | string
+    } | any,
     description?: string | any,
     argsRules?: Array<Function> | any,
     prefix?: string | any,

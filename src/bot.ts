@@ -6,7 +6,8 @@ import {
 import  { config } from 'dotenv';
 
 interface conf {
-    [key: string]: string
+    [key: string]: string,
+    token: string
 }
 
 const unparsedconf: any = config();
@@ -16,8 +17,8 @@ const token: string = conf.TOKEN;
 const client: Client = new Client(
     {
         classes: [
-            `${__dirname}/*commands.ts`,
-            `${__dirname}/*commands.js`
+            `${__dirname}/handler/*index.ts`,
+            `${__dirname}/handler/*index.js`
         ],
         silent: false,
         variablesChar: `:`

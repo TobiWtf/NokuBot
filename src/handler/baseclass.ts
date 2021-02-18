@@ -1,7 +1,8 @@
-import { CommandMessage } from '@typeit/discord';
+import { CommandMessage, Discord, CommandNotFound } from '@typeit/discord';
 import { User, MessageEmbed } from 'discord.js';
+import Path from 'path';
 
-export default abstract class default_class {
+export default class baseclass {
 
     public async random_color(): Promise<string> {
         return `#${(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, `0`)}`;

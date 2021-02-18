@@ -14,5 +14,6 @@ export default class extends baseclass  {
     @CommandNotFound()
     public async notfound(command: CommandMessage) {
         this.color_send(command, `${command.content.split(prefix).pop()?.split(" ")[0]} not found`)
+        console.log(command.commandContent)
     }
 }

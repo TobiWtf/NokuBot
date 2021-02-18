@@ -1,8 +1,24 @@
-import { CommandMessage, Discord, CommandNotFound } from '@typeit/discord';
+import { CommandMessage, Client } from '@typeit/discord';
 import { User, MessageEmbed } from 'discord.js';
-import Path from 'path';
+import { command } from './interfaces'
+
 
 export default class baseclass {
+
+    public async index_commands(index: string): Promise<command | null> {
+        let commands: Array<command> = Client.getCommands();
+        for (let key in commands) {
+            let command: command = commands[key];
+            if (command.commandName == index.toLowerCase()) {
+                return command
+            }
+        }
+        return null
+    }
+
+    public async get_commands(): Promise<Array<command>> {
+        return Client.getCommands()
+    }
 
     public async random_color(): Promise<string> {
         return `#${(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, `0`)}`;

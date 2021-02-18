@@ -4,9 +4,8 @@
 import {
     Command,
     CommandMessage,
-    Discord,
     Infos
-} from "@typeit/discord"
+} from '@typeit/discord'
 
 import { User } from 'discord.js'
 

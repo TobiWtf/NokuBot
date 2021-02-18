@@ -1,6 +1,4 @@
 import {
-    Discord,
-    CommandNotFound,
     Client
 } from '@typeit/discord';
 import  { config } from 'dotenv';

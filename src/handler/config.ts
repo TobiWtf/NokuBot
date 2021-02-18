@@ -1,5 +1,5 @@
 
-var prefix = "n!";
+var prefix = `n!`;
 
 export default prefix;
 

@@ -13,7 +13,7 @@ export default class baseclass {
         let commands: Array<command> = Client.getCommands();
         for (let key in commands) {
             let command: command = commands[key];
-            if (command.commandName.split(" ")[0] == index.toLowerCase()) {
+            if (command.commandName.split(` `)[0] == index.toLowerCase()) {
                 return command
             }
         }
@@ -76,7 +76,7 @@ export default class baseclass {
      * @param opts 
      * @param callback 
      */
-    public async index_member_nicks(command: CommandMessage, opts: {[key: string]: any} = {nick: ""}, callback: Function | null = null): Promise<Array<User>> {
+    public async index_member_nicks(command: CommandMessage, opts: {[key: string]: any} = {nick: ``}, callback: Function | null = null): Promise<Array<User>> {
         let members = await command.guild?.members.fetch();
         let users: Array<User> = [];
         if (!members) {

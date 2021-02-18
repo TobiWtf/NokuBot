@@ -4,9 +4,7 @@
 import {
     Command,
     CommandMessage,
-    Description,
-    Infos,
-    Client
+    Infos
 } from '@typeit/discord';
 
 import { 
@@ -21,14 +19,13 @@ import {
 /**
  * Default imports
  */
-import prefix from "../config";
-import baseclass from "../baseclass";
-import { stringify } from 'querystring';
+import prefix from '../config';
+import baseclass from '../baseclass';
 
 /**
  * Used to determine group for help command
  */
-let commandClass = "Info";
+let commandClass = `Info`;
 
 export default abstract class info extends baseclass {
     
@@ -57,8 +54,8 @@ export default abstract class info extends baseclass {
     @Command(`help :index`)
     @Infos({
         commandClass: commandClass,
-        args: ["command-name"],
-        description: "provides details about commands",
+        args: [`command-name`],
+        description: `provides details about commands`,
         usage: [`help`, `help [command-name]`]
     })
     private async help(command: CommandMessage): Promise<void> {
@@ -70,7 +67,7 @@ export default abstract class info extends baseclass {
             if (indexed_command) {
                 let args: string | null, usage: string | null;
                 if (indexed_command.infos.args) {
-                    args = indexed_command.infos.args.join(", ")
+                    args = indexed_command.infos.args.join(`, `)
                 } else {
                     args = null;
                 }
@@ -80,7 +77,7 @@ export default abstract class info extends baseclass {
                         for (let index in indexed_command.infos.usage) {
                             new_command_usages.push(prefix + indexed_command.infos.usage[index])
                         }
-                        usage = new_command_usages.join("\n")
+                        usage = new_command_usages.join(`\n`)
                     } else {
                         usage = prefix + indexed_command.infos.usage
                     }
@@ -102,12 +99,12 @@ export default abstract class info extends baseclass {
                     embed.addField(`Args`, args)
                 }
                 if (usage) {
-                    embed.addField("Usage/s", usage)
+                    embed.addField(`Usage/s`, usage)
                 }
                 if (indexed_command.infos.commandClass) {
                     embed.addField(`Grouping`, indexed_command.infos.commandClass)
                 }
-                embed.setFooter("args <required> [optional]\ndon't include <>[] in command")
+                embed.setFooter(`args <required> [optional]\ndon't include <>[] in command`)
                 command.channel.send(embed)
                 return
             } else {

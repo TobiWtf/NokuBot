@@ -1,7 +1,7 @@
 import { CommandMessage, Client } from '@typeit/discord';
 import { User, MessageEmbed } from 'discord.js';
 import { command } from './interfaces'
-
+import prefix from './config'
 
 export default class baseclass {
 
@@ -18,6 +18,12 @@ export default class baseclass {
             }
         }
         return null
+    }
+
+    public async unparsed_args(command: CommandMessage): Promise<any> {
+        let command_content = command.content.split(" ");
+        command_content.shift()
+        return command_content.join(" ")
     }
 
     /**

@@ -20,7 +20,7 @@ export default class baseclass {
         return null
     }
 
-    public async unparsed_args(command: CommandMessage): Promise<any> {
+    public async unparsed_args(command: CommandMessage): Promise<string> {
         let command_content = command.content.split(" ");
         command_content.shift()
         return command_content.join(" ")
@@ -51,16 +51,28 @@ export default class baseclass {
         } else return false
     }
 
+
+    /**
+     * Checks for perm and preforms call, else tells them to fuck off
+     * @param command 
+     * @param callback 
+     */
+    public async is_admin(command: CommandMessage, callback: Function | any): Promise<void> {
+        if (await this.has_perm(command, `ADMINISTRATOR`)) {
+            callback()
+        } else this.color_send(command, `You are not an admin rekt`)
+    }
+
     /**
      * Default command send for most messages, gets a random color and sets description as message argument
      * @param command 
      * @param msg 
      */
-    public async color_send(command: CommandMessage, msg: string): Promise<void> {
+    public async color_send(command: CommandMessage, msg: string): Promise<any> {
         let embed = new MessageEmbed()
         .setColor(await this.random_color())
         .setDescription(msg);
-        command.channel.send(embed);
+        return command.channel.send(embed);
     }
 
     /**

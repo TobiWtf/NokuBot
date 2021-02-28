@@ -1,34 +1,37 @@
-import sqlite = require('better-sqlite3');
-import EventEmitter from 'events';
-const events = new EventEmitter();
+import lowlib = require('lowdb');
+import filesync = require('lowdb/adapters/FileSync');
 
-const executions: Array<string> = [];
-function prepare(target: Object, propertyKey: string, descriptor: TypedPropertyDescriptor<any>): any {
-    executions.push(descriptor.value())
-}
+import {
+    CommandMessage
+} from '@typeit/discord'
 
 export default class database {
-    database: any;
+    private _filesync: any
+    private _db: any
 
-    constructor(path: string = `database.db`, opts = {}) {
-        this.database = sqlite(path, opts);
-        this.prepare()
-    };
-
-    public async prepare(): Promise<void> {
-        executions.forEach(
-            async (element: string) => {
-                console.log(await element)
-                this.database.exec(await element)
-            }
-        );
+    constructor(fileName: string) {
+        this._filesync = new filesync(fileName);
+        this._db = () => lowlib(this._filesync);
+        this._db().defaults({reactions: []}).write()
     }
 
-    //@prepare
-    private static async test(): Promise<string> {
-        return `
-        CREATE TABLE 
-        IF NOT EXISTS
-        `
+    public async reaction_listener_add(command: CommandMessage, message_id: string, role_id: string): Promise<void> {
+        this._db().get('reactions')
+        .push({
+            guild: command.guild?.id,
+            message: message_id,
+            role: role_id
+        })
+        .write()
     }
+
+    public async find_reaction_listener(reaction: any): Promise<any> {
+        return this._db().get(`reactions`)
+            .find({
+                guild: reaction.message.guild.id,
+                message: reaction.message.id
+            })
+            .value()
+    }
+
 }

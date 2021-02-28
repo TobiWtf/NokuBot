@@ -2,8 +2,10 @@
   "dependencies": {
     "@typeit/discord": "^4.0.9",
     "@types/better-sqlite3": "^5.4.1",
+    "@types/lowdb": "^1.0.9",
     "better-sqlite3": "^7.1.2",
     "dotenv": "^8.2.0",
+    "lowdb": "^1.0.0",
     "tslib": "^2.1.0"
   },
   "scripts": {
